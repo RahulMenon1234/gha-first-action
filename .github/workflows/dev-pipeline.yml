@@ -8,5 +8,7 @@ jobs:
         run: echo "Hello Code chekout"
         
       - name: setup .net
-        run: echo "setup .net"
+        run:|
+            echo "setup .net"
+            echo ".net setup completed"
         
