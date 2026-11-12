@@ -1,14 +1,31 @@
-name: Development Pipeline
+# name: Development Pipeline
+# on: workflow_dispatch
+# jobs:
+#   build-job:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: checkout
+#         run: echo "Hello Code chekout"
+        
+#       - name: setup .net
+#         run: |
+#             echo "setup .net"
+#             echo ".net setup completed"
+name: dev pipeline
 on: workflow_dispatch
 jobs:
-  build-job:
+  test:
     runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        run: echo "Hello Code chekout"
-        
-      - name: setup .net
-        run: |
-            echo "setup .net"
-            echo ".net setup completed"
-        
+    steps: 
+      - name: get code
+        uses: action/checkout@v7
+      - name: setup python
+        uses: action/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: build
+        run:  python -m compileall src
+
+      - name: test
+        run: python -m unittest discover -s tests -v
